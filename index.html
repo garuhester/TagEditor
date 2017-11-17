@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>TagEditor</title>
+    <link rel="stylesheet" href="./css/svg.select.css">
+    <link rel="stylesheet" type="text/css" href="./css/icon/iconfont.css">
+    <link rel="stylesheet" type="text/css" href="./css/main.css">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="./js/svg.js"></script>
+    <script src="./js/svg.select.js"></script>
+    <script src="./js/svg.draggable.js"></script>
+    <script src="./js/svg.draw.js"></script>
+    <script src="./js/svg.resize.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        
+        #main {
+            background: #ddd;
+            width: 100%;
+            position: relative;
+            z-index: -1;
+            overflow: auto;
+        }
+        
+        svg {
+            /*border-radius: 20px;*/
+            padding: 0;
+            margin: 0;
+            font-size: 0;
+            background: #fff;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .seled {
+            border: 1px solid red;
+        }
+        
+        .fileDiv {
+            position: fixed;
+            z-index: 999;
+            border: 1px dashed rgba(0, 0, 0, .5);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="around">
+        <div class="header">
+            <div class="logo">wewin</div>
+            <ul class="first">
+                <li>文件
+                    <ul class="second">
+                        <li onclick="newFile()">新建</li>
+                        <li>打开</li>
+                        <li>保存</li>
+                        <li>另存为</li>
+                        <div class="split"></div>
+                        <li>最近的文件</li>
+                        <div class="split"></div>
+                        <li>打印</li>
+                        <li>打印预览</li>
+                        <li onclick="window.close()">退出</li>
+                    </ul>
+                </li>
+                <li>编辑
+                    <ul class="second">
+                        <li>复制</li>
+                        <li>剪切</li>
+                        <li>粘贴</li>
+                        <li>删除</li>
+                    </ul>
+                </li>
+                <li>查看
+                    <ul class="second">
+                        <li onclick="zoom(1)">标签放大</li>
+                        <li onclick="zoom(-1)">标签放小</li>
+                    </ul>
+                </li>
+                <li>设置
+                    <ul class="second">
+                        <li>标签设置</li>
+                        <li>数据源设置</li>
+                        <li>保存路径设置</li>
+                        <li>更新数据库</li>
+                        <li>删除数据库</li>
+                        <li>查看数据库</li>
+                    </ul>
+                </li>
+                <li>帮助
+                    <ul class="second">
+                        <li>关于</li>
+                        <li>模板更新</li>
+                        <li>在线客服</li>
+                    </ul>
+                </li>
+                <li class="right"><a href="">登录</a> | <a href="">注册</a></li>
+            </ul>
+        </div>
+        <div class="split"></div>
+        <div class="tools-h h1">
+            <div class="tool" title="新建" onclick="newFile()"><i class="iconfont icon-kongbaiwenjian"></i></div>
+            <div class="tool" title="打开"><i class="iconfont icon-wenjianjiadakaiicon"></i></div>
+            <div class="tool" title="保存"><i class="iconfont icon-baocun"></i></div>
+            <div class="vertical-split"></div>
+            <div class="tool" title="打印"><i class="iconfont icon-dayin"></i></div>
+            <div class="tool" title="打印预览"><i class="iconfont icon-dayinyulan"></i></div>
+            <div class="vertical-split"></div>
+            <div class="tool" title="左旋转"><i class="iconfont icon-icons07"></i></div>
+            <div class="tool" title="右旋转"><i class="iconfont icon-icons06"></i></div>
+            <div class="tool" title="放大" onclick="zoom(1)"><i class="iconfont icon-fangda"></i></div>
+            <div class="tool" title="缩小" onclick="zoom(-1)"><i class="iconfont icon-suoxiao"></i></div>
+            <div class="vertical-split"></div>
+            <div class="tool" title="数据库设置"><i class="iconfont icon-shujuku"></i></div>
+            <div class="tool" title="上一条"><i class="iconfont icon-fenyeshangyiye"></i></div>
+            <div class="tool" title="下一条"><i class="iconfont icon-fenyeshangyiye1"></i></div>
+            <div class="vertical-split"></div>
+            <div class="tool" title="置顶" onclick="position('top')"><i class="iconfont icon-duiqi"></i></div>
+            <div class="tool" title="靠左" onclick="position('left')"><i class="iconfont icon-duiqi-copy"></i></div>
+            <div class="tool" title="底部" onclick="position('bottom')"><i class="iconfont icon-duiqi-copy1"></i></div>
+            <div class="tool" title="靠右" onclick="position('right')"><i class="iconfont icon-duiqi-copy-copy"></i></div>
+            <div class="tool" title="左上" onclick="position('lefttop')"><i class="iconfont icon-zuoshang"></i></div>
+            <div class="tool" title="右上" onclick="position('righttop')"><i class="iconfont icon-youshang"></i></div>
+            <div class="tool" title="左下" onclick="position('leftbottom')"><i class="iconfont icon-zuoxia"></i></div>
+            <div class="tool" title="右下" onclick="position('rightbottom')"><i class="iconfont icon-youxia"></i></div>
+            <div class="tool" title="水平居中" onclick="position('hcenter')"><i class="iconfont icon-shuipingjuzhong"></i></div>
+            <div class="tool" title="垂直居中" onclick="position('vcenter')"><i class="iconfont icon-shuipingjuzhong1"></i></div>
+            <div class="tool" title="水平垂直居中" onclick="position('center')"><i class="iconfont icon-juzhong"></i></div>
+        </div>
+        <div class="split"></div>
+        <div class="tools-v">
+            <div class="tool" title="选择"><i class="iconfont icon-xuanze"></i></div>
+            <div class="tool" title="文本"><i class="iconfont icon-wenben"></i></div>
+            <div class="tool" title="二维码"><i class="iconfont icon-erweima"></i></div>
+            <div class="tool" title="条形码"><i class="iconfont icon-tiaoxingma"></i></div>
+            <div class="tool" title="RFID"><i class="iconfont icon-rfid"></i></div>
+            <div class="tool" title="图像"><i class="iconfont icon-tuxiang"></i></div>
+            <div class="tool" title="斜线"><i class="iconfont icon-xiantiao-xiexian1"></i></div>
+            <div class="tool" title="直线"><i class="iconfont icon-zhixianceliang"></i></div>
+            <div class="tool" title="图形"><i class="iconfont icon-tuxing"></i></div>
+        </div>
+        <div class="tools-h h2">
+            <div class="tool" title="粗体"><i class="iconfont t2 icon-bold"></i></div>
+            <div class="tool" title="斜体"><i class="iconfont t2 icon-xieti"></i></div>
+            <div class="tool" title="下划线"><i class="iconfont t2 icon-xiahuaxian"></i></div>
+            <div class="tool" title="字体颜色"><i class="iconfont t2 icon-zitiyanse"></i></div>
+            <div class="tool" title="左对齐"><i class="iconfont t2 icon-zuoduiqi"></i></div>
+            <div class="tool" title="居中对齐"><i class="iconfont t2 icon-juzhongduiqi"></i></div>
+            <div class="tool" title="右对齐"><i class="iconfont t2 icon-youduiqi"></i></div>
+            <div class="vertical-split"></div>
+            <div class="tool" title="撤销"><i class="iconfont t2 icon-huifu1"></i></div>
+            <div class="tool" title="恢复"><i class="iconfont t2 icon-huifu"></i></div>
+            <div class="tool" title="删除对象" onclick="deleteObj()"><i class="iconfont t2 icon-delete2"></i></div>
+        </div>
+        <div id="main"></div>
+        <div class="footer">
+            <div class="left">重庆品胜科技有限公司</div>
+            <div class="left">标签放大系数:300%</div>
+            <div class="left">已导入数据库:0行 0列</div>
+            <div class="left">文件名称:</div>
+            <div class="left tag">标签:宽度50 高度20</div>
+            <div class="right pos">当前坐标:10,10</div>
+        </div>
+    </div>
+    <script src="./js/mouse.select.js"></script>
+    <script>
+        var main, svg, panel, group;
+        var pw, ph, defaultWidth, defaultHeight, nowWidth, nowHeight;
+
+        //记录选中的元素
+        var selectArr = [];
+
+        //新建文件，检测是否有内容
+        function newFile() {
+            if (svg && document.getElementById(svg.id()).innerHTML.length > 32) {
+                var r = confirm("是否先保存文件?")
+                if (r) {
+
+                } else {
+                    createFile();
+                }
+            } else {
+                createFile();
+            }
+        }
+
+        //创建文件
+        function createFile() {
+            main = document.getElementById('main');
+            main.style.height = (document.body.clientHeight - 117) + "px";
+
+            //清空画布
+            main.innerHTML = "";
+
+            //自适应获取画布大小
+            // pw = main.clientWidth;
+            // ph = main.clientHeight;
+            pw = 700;
+            ph = 300;
+
+            //创建SVG画布
+            svg = SVG('main').size(pw, ph);
+            // svg.viewbox(0, 0, pw, ph);
+            svg.mousemove(function(e) {
+                var x = event.offsetX;
+                var y = event.offsetY;
+                $('.footer .pos').text(`当前坐标:${x},${y}`);
+            });
+            //默认(打印)画布尺寸
+            defaultWidth = svg.width();
+            defaultHeight = svg.height();
+
+            //设置显示尺寸(放大四倍显示)
+            nowWidth = svg.width(parseFloat(defaultWidth).toFixed(0)).width();
+            nowHeight = svg.height(parseFloat(defaultHeight).toFixed(0)).height();
+            //添加组
+            group = svg.group();
+            //取消组中元素的选择
+            svg.click(function() {
+                clearSelectArr(null);
+            });
+
+            $('.footer .tag').text(`标签:宽度${pw} 高度${ph}`);
+        }
+
+        //清除选择的元素
+        function clearSelectArr(middleFun) {
+            for (var i = 0; i < group.children().length; i++) {
+                group.children()[i].selectize(false);
+            }
+            middleFun ? middleFun() : middleFun;
+            selectArr = [];
+        }
+
+        //缩放
+        function zoom(type) {
+            if (type === 1) {
+                //放大
+                nowWidth = svg.width(parseFloat(nowWidth * 1.2).toFixed(0)).width();
+                nowHeight = svg.height(parseFloat(nowHeight * 1.2).toFixed(0)).height();
+            } else if (type === -1) {
+                //缩小
+                nowWidth = svg.width(parseFloat(nowWidth / 1.2).toFixed(0)).width();
+                nowHeight = svg.height(parseFloat(nowHeight / 1.2).toFixed(0)).height();
+            }
+        }
+
+        //选择元素
+        function selectObj(obj, e) {
+            if (selectArr.indexOf(obj) != 0) {
+                selectArr.push(obj);
+            }
+            obj.selectize().resize();
+            e.stopPropagation();
+        }
+
+        //拖动元素
+        function dragObj(obj) {
+            obj.draggable({
+                minX: 0,
+                minY: 0,
+                maxX: svg.width(),
+                maxY: svg.height()
+            });
+        }
+
+        //初始化元素
+        function initObj(obj) {
+            group.add(obj);
+            obj.click(function(e) {
+                dragObj(obj);
+                selectObj(obj, e);
+            });
+        }
+
+        //删除元素
+        function deleteObj() {
+            if (selectArr.length != 0) {
+                var r = confirm("是否要删除选中的元素？");
+                if (r) {
+                    clearSelectArr(function() {
+                        selectArr.forEach(function(item) {
+                            item.remove();
+                        });
+                    })
+                }
+            }
+        }
+
+        //画元素
+        function drawObj(obj) {
+            obj.addClass('fileDiv');
+            var newObj = obj.draw();
+            newObj.on('drawstart', function() {
+                selectObj(obj);
+            });
+            newObj.on('drawstop', function() {
+                group.add(newObj);
+                dragObj(newObj);
+            });
+        }
+
+        //定位
+        function position(type) {
+            selectArr.forEach(function(obj) {
+                switch (type) {
+                    case 'top':
+                        obj.y(0);
+                        break;
+                    case 'left':
+                        obj.x(0);
+                        break;
+                    case 'bottom':
+                        obj.y(nowHeight - obj.height());
+                        break;
+                    case 'right':
+                        obj.x(nowWidth - obj.width());
+                        break;
+                    case 'lefttop':
+                        obj.x(0).y(0);
+                        break;
+                    case 'righttop':
+                        obj.x(nowWidth - obj.width()).y(0);
+                        break;
+                    case 'leftbottom':
+                        obj.x(0).y(nowHeight - obj.height());
+                        break;
+                    case 'rightbottom':
+                        obj.x(nowWidth - obj.width()).y(nowHeight - obj.height());
+                        break;
+                    case 'hcenter':
+                        obj.x(nowWidth / 2 - obj.width() / 2);
+                        break;
+                    case 'vcenter':
+                        obj.y(nowHeight / 2 - obj.height() / 2);
+                        break;
+                    case 'center':
+                        obj.x(nowWidth / 2 - obj.width() / 2).y(nowHeight / 2 - obj.height() / 2);
+                        break;
+                }
+            });
+        }
+
+        //mm转换为px
+        function mm2px(w, h) {
+            var r = {};
+            var div = document.createElement('div');
+            div.className = "asd";
+            div.style.width = w;
+            div.style.height = h;
+            document.body.appendChild(div)
+            r.w = div.offsetWidth;
+            r.h = div.offsetHeight;
+            return r;
+        }
+
+        //初始化画布
+        function init() {
+            newFile();
+            var rect = svg.rect(50, 50).attr({
+                fill: '#ccc',
+                x: 10,
+                y: 10
+            });
+            initObj(rect);
+        }
+        init();
+    </script>
+</body>
+
+</html>
