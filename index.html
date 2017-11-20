@@ -251,6 +251,10 @@
                 nowWidth = svg.width(parseFloat(nowWidth / 1.2).toFixed(0)).width();
                 nowHeight = svg.height(parseFloat(nowHeight / 1.2).toFixed(0)).height();
             }
+            for (var i = 0; i < group.children().length; i++) {
+                var element = group.children()[i];
+                dragObj(element);
+            }
         }
 
         //选择元素
