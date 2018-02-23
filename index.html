@@ -19,7 +19,7 @@
             padding: 0;
             margin: 0;
         }
-        
+
         #main {
             background: #ddd;
             width: 100%;
@@ -27,7 +27,7 @@
             z-index: -1;
             overflow: auto;
         }
-        
+
         svg {
             /*border-radius: 20px;*/
             padding: 0;
@@ -39,11 +39,11 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
-        
+
         .seled {
             border: 1px solid red;
         }
-        
+
         .fileDiv {
             position: fixed;
             z-index: 999;
@@ -102,63 +102,150 @@
                         <li>在线客服</li>
                     </ul>
                 </li>
-                <li class="right"><a href="">登录</a> | <a href="">注册</a></li>
+                <li class="right">
+                    <a href="">登录</a> |
+                    <a href="">注册</a>
+                </li>
             </ul>
         </div>
         <div class="split"></div>
         <div class="tools-h h1">
-            <div class="tool" title="新建" onclick="newFile()"><i class="iconfont icon-kongbaiwenjian"></i></div>
-            <div class="tool" title="打开"><i class="iconfont icon-wenjianjiadakaiicon"></i></div>
-            <div class="tool" title="保存"><i class="iconfont icon-baocun"></i></div>
+            <div class="tool" title="新建" onclick="newFile()">
+                <i class="iconfont icon-kongbaiwenjian"></i>
+            </div>
+            <div class="tool" title="打开">
+                <i class="iconfont icon-wenjianjiadakaiicon"></i>
+            </div>
+            <div class="tool" title="保存">
+                <i class="iconfont icon-baocun"></i>
+            </div>
             <div class="vertical-split"></div>
-            <div class="tool" title="打印"><i class="iconfont icon-dayin"></i></div>
-            <div class="tool" title="打印预览"><i class="iconfont icon-dayinyulan"></i></div>
+            <div class="tool" title="打印">
+                <i class="iconfont icon-dayin"></i>
+            </div>
+            <div class="tool" title="打印预览">
+                <i class="iconfont icon-dayinyulan"></i>
+            </div>
             <div class="vertical-split"></div>
-            <div class="tool" title="左旋转"><i class="iconfont icon-icons07"></i></div>
-            <div class="tool" title="右旋转"><i class="iconfont icon-icons06"></i></div>
-            <div class="tool" title="放大" onclick="zoom(1)"><i class="iconfont icon-fangda"></i></div>
-            <div class="tool" title="缩小" onclick="zoom(-1)"><i class="iconfont icon-suoxiao"></i></div>
+            <div class="tool" title="左旋转">
+                <i class="iconfont icon-icons07"></i>
+            </div>
+            <div class="tool" title="右旋转">
+                <i class="iconfont icon-icons06"></i>
+            </div>
+            <div class="tool" title="放大" onclick="zoom(1)">
+                <i class="iconfont icon-fangda"></i>
+            </div>
+            <div class="tool" title="缩小" onclick="zoom(-1)">
+                <i class="iconfont icon-suoxiao"></i>
+            </div>
             <div class="vertical-split"></div>
-            <div class="tool" title="数据库设置"><i class="iconfont icon-shujuku"></i></div>
-            <div class="tool" title="上一条"><i class="iconfont icon-fenyeshangyiye"></i></div>
-            <div class="tool" title="下一条"><i class="iconfont icon-fenyeshangyiye1"></i></div>
+            <div class="tool" title="数据库设置">
+                <i class="iconfont icon-shujuku"></i>
+            </div>
+            <div class="tool" title="上一条">
+                <i class="iconfont icon-fenyeshangyiye"></i>
+            </div>
+            <div class="tool" title="下一条">
+                <i class="iconfont icon-fenyeshangyiye1"></i>
+            </div>
             <div class="vertical-split"></div>
-            <div class="tool" title="置顶" onclick="position('top')"><i class="iconfont icon-duiqi"></i></div>
-            <div class="tool" title="靠左" onclick="position('left')"><i class="iconfont icon-duiqi-copy"></i></div>
-            <div class="tool" title="底部" onclick="position('bottom')"><i class="iconfont icon-duiqi-copy1"></i></div>
-            <div class="tool" title="靠右" onclick="position('right')"><i class="iconfont icon-duiqi-copy-copy"></i></div>
-            <div class="tool" title="左上" onclick="position('lefttop')"><i class="iconfont icon-zuoshang"></i></div>
-            <div class="tool" title="右上" onclick="position('righttop')"><i class="iconfont icon-youshang"></i></div>
-            <div class="tool" title="左下" onclick="position('leftbottom')"><i class="iconfont icon-zuoxia"></i></div>
-            <div class="tool" title="右下" onclick="position('rightbottom')"><i class="iconfont icon-youxia"></i></div>
-            <div class="tool" title="水平居中" onclick="position('hcenter')"><i class="iconfont icon-shuipingjuzhong"></i></div>
-            <div class="tool" title="垂直居中" onclick="position('vcenter')"><i class="iconfont icon-shuipingjuzhong1"></i></div>
-            <div class="tool" title="水平垂直居中" onclick="position('center')"><i class="iconfont icon-juzhong"></i></div>
+            <div class="tool" title="置顶" onclick="position('top')">
+                <i class="iconfont icon-duiqi"></i>
+            </div>
+            <div class="tool" title="靠左" onclick="position('left')">
+                <i class="iconfont icon-duiqi-copy"></i>
+            </div>
+            <div class="tool" title="底部" onclick="position('bottom')">
+                <i class="iconfont icon-duiqi-copy1"></i>
+            </div>
+            <div class="tool" title="靠右" onclick="position('right')">
+                <i class="iconfont icon-duiqi-copy-copy"></i>
+            </div>
+            <div class="tool" title="左上" onclick="position('lefttop')">
+                <i class="iconfont icon-zuoshang"></i>
+            </div>
+            <div class="tool" title="右上" onclick="position('righttop')">
+                <i class="iconfont icon-youshang"></i>
+            </div>
+            <div class="tool" title="左下" onclick="position('leftbottom')">
+                <i class="iconfont icon-zuoxia"></i>
+            </div>
+            <div class="tool" title="右下" onclick="position('rightbottom')">
+                <i class="iconfont icon-youxia"></i>
+            </div>
+            <div class="tool" title="水平居中" onclick="position('hcenter')">
+                <i class="iconfont icon-shuipingjuzhong"></i>
+            </div>
+            <div class="tool" title="垂直居中" onclick="position('vcenter')">
+                <i class="iconfont icon-shuipingjuzhong1"></i>
+            </div>
+            <div class="tool" title="水平垂直居中" onclick="position('center')">
+                <i class="iconfont icon-juzhong"></i>
+            </div>
         </div>
         <div class="split"></div>
         <div class="tools-v">
-            <div class="tool" title="选择"><i class="iconfont icon-xuanze"></i></div>
-            <div class="tool" title="文本"><i class="iconfont icon-wenben"></i></div>
-            <div class="tool" title="二维码"><i class="iconfont icon-erweima"></i></div>
-            <div class="tool" title="条形码"><i class="iconfont icon-tiaoxingma"></i></div>
-            <div class="tool" title="RFID"><i class="iconfont icon-rfid"></i></div>
-            <div class="tool" title="图像"><i class="iconfont icon-tuxiang"></i></div>
-            <div class="tool" title="斜线"><i class="iconfont icon-xiantiao-xiexian1"></i></div>
-            <div class="tool" title="直线"><i class="iconfont icon-zhixianceliang"></i></div>
-            <div class="tool" title="图形"><i class="iconfont icon-tuxing"></i></div>
+            <div class="tool" title="选择">
+                <i class="iconfont icon-xuanze"></i>
+            </div>
+            <div class="tool" title="文本">
+                <i class="iconfont icon-wenben"></i>
+            </div>
+            <div class="tool" title="二维码">
+                <i class="iconfont icon-erweima"></i>
+            </div>
+            <div class="tool" title="条形码">
+                <i class="iconfont icon-tiaoxingma"></i>
+            </div>
+            <div class="tool" title="RFID">
+                <i class="iconfont icon-rfid"></i>
+            </div>
+            <div class="tool" title="图像">
+                <i class="iconfont icon-tuxiang"></i>
+            </div>
+            <div class="tool" title="斜线">
+                <i class="iconfont icon-xiantiao-xiexian1"></i>
+            </div>
+            <div class="tool" title="直线">
+                <i class="iconfont icon-zhixianceliang"></i>
+            </div>
+            <div class="tool" title="图形">
+                <i class="iconfont icon-tuxing"></i>
+            </div>
         </div>
         <div class="tools-h h2">
-            <div class="tool" title="粗体"><i class="iconfont t2 icon-bold"></i></div>
-            <div class="tool" title="斜体"><i class="iconfont t2 icon-xieti"></i></div>
-            <div class="tool" title="下划线"><i class="iconfont t2 icon-xiahuaxian"></i></div>
-            <div class="tool" title="字体颜色"><i class="iconfont t2 icon-zitiyanse"></i></div>
-            <div class="tool" title="左对齐"><i class="iconfont t2 icon-zuoduiqi"></i></div>
-            <div class="tool" title="居中对齐"><i class="iconfont t2 icon-juzhongduiqi"></i></div>
-            <div class="tool" title="右对齐"><i class="iconfont t2 icon-youduiqi"></i></div>
+            <div class="tool" title="粗体">
+                <i class="iconfont t2 icon-bold"></i>
+            </div>
+            <div class="tool" title="斜体">
+                <i class="iconfont t2 icon-xieti"></i>
+            </div>
+            <div class="tool" title="下划线">
+                <i class="iconfont t2 icon-xiahuaxian"></i>
+            </div>
+            <div class="tool" title="字体颜色">
+                <i class="iconfont t2 icon-zitiyanse"></i>
+            </div>
+            <div class="tool" title="左对齐">
+                <i class="iconfont t2 icon-zuoduiqi"></i>
+            </div>
+            <div class="tool" title="居中对齐">
+                <i class="iconfont t2 icon-juzhongduiqi"></i>
+            </div>
+            <div class="tool" title="右对齐">
+                <i class="iconfont t2 icon-youduiqi"></i>
+            </div>
             <div class="vertical-split"></div>
-            <div class="tool" title="撤销"><i class="iconfont t2 icon-huifu1"></i></div>
-            <div class="tool" title="恢复"><i class="iconfont t2 icon-huifu"></i></div>
-            <div class="tool" title="删除对象" onclick="deleteObj()"><i class="iconfont t2 icon-delete2"></i></div>
+            <div class="tool" title="撤销">
+                <i class="iconfont t2 icon-huifu1"></i>
+            </div>
+            <div class="tool" title="恢复">
+                <i class="iconfont t2 icon-huifu"></i>
+            </div>
+            <div class="tool" title="删除对象" onclick="deleteObj()">
+                <i class="iconfont t2 icon-delete2"></i>
+            </div>
         </div>
         <div id="main"></div>
         <div class="footer">
@@ -209,7 +296,7 @@
             //创建SVG画布
             svg = SVG('main').size(pw, ph);
             // svg.viewbox(0, 0, pw, ph);
-            svg.mousemove(function(e) {
+            svg.mousemove(function (e) {
                 var x = event.offsetX;
                 var y = event.offsetY;
                 $('.footer .pos').text(`当前坐标:${x},${y}`);
@@ -224,7 +311,7 @@
             //添加组
             group = svg.group();
             //取消组中元素的选择
-            svg.click(function() {
+            svg.click(function () {
                 clearSelectArr(null);
             });
 
@@ -279,7 +366,7 @@
         //初始化元素
         function initObj(obj) {
             group.add(obj);
-            obj.click(function(e) {
+            obj.click(function (e) {
                 dragObj(obj);
                 selectObj(obj, e);
             });
@@ -290,8 +377,8 @@
             if (selectArr.length != 0) {
                 var r = confirm("是否要删除选中的元素？");
                 if (r) {
-                    clearSelectArr(function() {
-                        selectArr.forEach(function(item) {
+                    clearSelectArr(function () {
+                        selectArr.forEach(function (item) {
                             item.remove();
                         });
                     })
@@ -303,10 +390,10 @@
         function drawObj(obj) {
             obj.addClass('fileDiv');
             var newObj = obj.draw();
-            newObj.on('drawstart', function() {
+            newObj.on('drawstart', function () {
                 selectObj(obj);
             });
-            newObj.on('drawstop', function() {
+            newObj.on('drawstop', function () {
                 group.add(newObj);
                 dragObj(newObj);
             });
@@ -314,7 +401,7 @@
 
         //定位
         function position(type) {
-            selectArr.forEach(function(obj) {
+            selectArr.forEach(function (obj) {
                 switch (type) {
                     case 'top':
                         obj.y(0);
